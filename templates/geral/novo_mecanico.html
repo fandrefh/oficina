@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block titulo %}
+    Mecânico | {{ block.super }}
+{% endblock titulo %}
+
+
+{% block main %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <form method='post'>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.nome.id_for_label }}" class="form-label">{{ form.nome.label }}</label>
+                {% render_field form.nome class='form-control' placeholder='Digite o nome do mecânico...' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.codigo.id_for_label }}" class="form-label">{{ form.codigo.label }}</label>
+                {% render_field form.codigo class='form-control' placeholder='Crie um código para mecânico...' %}
+            </div>
+            <button type='submit' class='btn btn-primary'>Salvar</button>
+            <a href='{% url "geral:lista_mecanico" %}' class='btn btn-outline-secondary'>Cancelar</a>
+        </form>
+    </main>
+{% endblock main %}
+    
+    
