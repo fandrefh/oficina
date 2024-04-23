@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block titulo %}
+    Ordem de Serviço | {{ block.super }}
+{% endblock titulo %}
+
+
+{% block main %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <form method='post'>
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.cliente.id_for_label }}" class="form-label">{{ form.cliente.label }}</label>
+                {% render_field form.cliente class='form-control' placeholder='Digite o nome do cliente...' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.veiculo.id_for_label }}" class="form-label">{{ form.veiculo.label }} (Opcional)</label>
+                {% render_field form.veiculo class='form-control' placeholder='Informe qual é o veículo...' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.placa.id_for_label }}" class="form-label">{{ form.placa.label }}</label>
+                {% render_field form.placa class='form-control' placeholder='Informe a placa do veículo...' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.previsao.id_for_label }}" class="form-label">{{ form.previsao.label }}</label>
+                {% render_field form.previsao class='form-control' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.codigo.id_for_label }}" class="form-label">{{ form.codigo.label }}</label>
+                {% render_field form.codigo class='form-control' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.servico.id_for_label }}" class="form-label">{{ form.servico.label }}</label>
+                {% render_field form.servico class='form-control' %}
+            </div>
+            <div class="mb-3">
+                <label for="{{ form.mecanico.id_for_label }}" class="form-label">{{ form.mecanico.label }}</label>
+                {% render_field form.mecanico class='form-control' %}
+            </div>
+            <button type='submit' class='btn btn-primary'>Salvar</button>
+            <a href='{% url "servicos:lista_ordem_servico" %}' class='btn btn-outline-secondary'>Cancelar</a>
+        </form>
+    </main>
+{% endblock main %}
+    
+    

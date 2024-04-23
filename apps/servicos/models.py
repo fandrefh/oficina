@@ -22,6 +22,10 @@ class Servico(models.Model):
 
 
 class OrdemServico(models.Model):
+    STATUS_CHOICES = (
+        (1, 'Aberto'),
+        (2, 'Concluído')
+    )
     oficina = models.ForeignKey(Oficina, verbose_name='Oficina', on_delete=models.CASCADE)
     mecanico = models.ForeignKey(Mecanico, verbose_name='Mecânico', on_delete=models.SET_NULL, null=True)
     cliente = models.CharField(verbose_name='Cliente', max_length=100)
@@ -31,6 +35,7 @@ class OrdemServico(models.Model):
     data_entrada = models.DateTimeField(verbose_name='Data/Hora Entrada', auto_now=True)
     codigo = models.PositiveIntegerField(verbose_name='Código OS', unique=True)
     servico = models.ManyToManyField(Servico, verbose_name='Serviços', related_name='os')
+    status = models.PositiveSmallIntegerField(verbose_name='Status', choices=STATUS_CHOICES, default=1)
 
     def __str__(self) -> str:
         return self.oficina.nome

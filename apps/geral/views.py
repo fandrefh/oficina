@@ -94,3 +94,19 @@ def lista_mecanico(request):
         'mecanicos': mecanicos
     }
     return render(request, template_name, context)
+
+
+@login_required
+def editar_mecanico(request, pk):
+    template_name = 'geral/novo_mecanico.html'
+    context = {}
+    mecanico = get_object_or_404(Mecanico, pk=pk)
+    if request.method == 'POST':
+        form = MecanicoForm(data=request.POST, instance=mecanico)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Dados do mecânico atualizados com sucesso.')
+            return redirect('geral:lista_mecanico')
+    form = MecanicoForm(instance=mecanico)
+    context['form'] = form
+    return render(request, template_name, context)

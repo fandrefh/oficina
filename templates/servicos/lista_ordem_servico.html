@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Ordem de Serviços | {{ block.super }}
+{% endblock titulo %}
+
+{% block main %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        {% include 'utils/messages.html' %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Placa</th>
+                    <th scope="col">Previsão</th>
+                    <th scope="col">Serviços</th>
+                    <th scope="col" colspan='2'>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for os in ordens_servicos %}
+                    <tr>
+                        <th scope="row">{{ os.id }}</th>
+                        <td>{{ os.cliente }}</td>
+                        <td>{{ os.placa }}</td>
+                        <td>{{ os.previsao }}</td>
+                        <td>{{ os.servico.all|join:', ' }}</td>
+                        <td>
+                            <a href='{% url "servicos:editar_ordem_servico" os.id %}' class='btn btn-outline-info btn-sm'>Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href='{% url "servicos:criar_ordem_servico" %}' class='btn btn-primary'>Criar Ordem de Serviço</a>
+    </main>
+{% endblock main %}
+    
